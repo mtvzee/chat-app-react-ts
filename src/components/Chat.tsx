@@ -1,16 +1,20 @@
 import ChatArea from './ChatArea';
 import ChatForm from './ChatForm';
 import ChatHeader from './ChatHeader';
+import DefaultChatArea from './DefaultChatArea';
 
 const Chat = () => {
   return (
-    <div className="flex-auto flex flex-col">
-      <ChatHeader />
+    <>
+      {/* <DefaultChatArea /> */}
+      <div className="flex-auto flex flex-col">
+        <ChatHeader />
 
-      <ChatArea />
+        <ChatArea />
 
-      <ChatForm />
-    </div>
+        <ChatForm />
+      </div>
+    </>
   );
 };
 
