@@ -7,7 +7,7 @@ const FriendList = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <ul className="overflow-y-scroll">
-      <li className="flex justify-evenly space-x-2 rounded-md py-3 hover:bg-[#283d55] cursor-pointer relative group transition">
+      <li className="flex justify-evenly space-x-2 rounded-md py-3 hover:bg-primary-hover cursor-pointer relative group transition">
         <Avatar />
         <div className="flex-auto">
           <span className="text-lg">matsutani</span>

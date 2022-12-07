@@ -15,7 +15,7 @@ const AddFriend = () => {
           <BsFillPersonPlusFill className="w-8 h-8 hover:scale-110 transition" />
         </button>
       </div>
-      <div className="flex  space-x-2 rounded-md py-3 bg-[#283d55] cursor-pointer transition  relative group">
+      <div className="flex  space-x-2 rounded-md py-3 bg-primary-hover cursor-pointer transition  relative group">
         <Avatar />
         <span className="text-lg">matsutani</span>
         <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse group-hover:scale-110 transition">
