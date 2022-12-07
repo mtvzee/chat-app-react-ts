@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form-input {
+    @apply border-b w-full outline-none p-1 focus:border-amber-300 focus:border-b-2;
+  }
+  .error-form-input {
+    @apply border-red-500;
+  }
+  .error-form-msg {
+    @apply absolute text-sm text-red-500;
+  }
+}
