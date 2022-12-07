@@ -13,11 +13,11 @@ const SidebarHeader = () => {
       <button className="relative" onClick={() => setIsOpen(!isOpen)}>
         <BsThreeDotsVertical className="w-6 h-6 hover:scale-110 transition " />
         {isOpen && (
-          <ul className="absolute top-10 right-0 w-52 bg-[#071d34] border border-white rounded-md overflow-hidden z-10">
-            <li className="p-3 hover:bg-[#283d55] border-b border-white">
+          <ul className="absolute top-10 right-0 w-52 bg-black border border-gray-600 rounded-md overflow-hidden z-10">
+            <li className="p-3 hover:bg-[#283d55] border-b border-gray-600 transition">
               プロフィールを変更
             </li>
-            <li className="p-3 hover:bg-[#283d55]">ログアウト</li>
+            <li className="p-3 hover:bg-[#283d55] transition">ログアウト</li>
           </ul>
         )}
       </button>
