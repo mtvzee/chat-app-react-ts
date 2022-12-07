@@ -52,7 +52,7 @@ const Login = () => {
             ログイン
           </button>
         </form>
-        <p className="text-center mt-1">
+        <p className=" mt-2 text-sm">
           アカウントを持っていない？
           <Link to="/register" className="underline">
             作成

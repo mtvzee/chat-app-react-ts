@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { HiOutlinePhotograph } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 type FormData = {
   displayName: string;
@@ -19,7 +20,7 @@ const Register = () => {
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
-      <div className="bg-white  rounded-md py-5 px-10 w-[400px] h-[400px] justify-center">
+      <div className="bg-white  rounded-md py-5 px-10 w-[400px] h-[425px] justify-center">
         <h1 className="text-2xl text-center">アカウントを登録する</h1>
         <form className="mt-8 space-y-7" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative">
@@ -92,6 +93,12 @@ const Register = () => {
             登録
           </button>
         </form>
+        <p className="mt-2 text-sm">
+          既にアカウントを持っている。
+          <Link to="/login" className="underline">
+            ログイン
+          </Link>
+        </p>
       </div>
     </div>
   );
