@@ -28,7 +28,7 @@ const Register = () => {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
 
       // Cloud Storageにアバター画像をアップロード
-      const avatarRef = ref(storage, `avatar/${data.email}`);
+      const avatarRef = ref(storage, `avatar/${auth.currentUser?.uid}`);
       await uploadBytes(avatarRef, data.file[0]);
 
       if (auth.currentUser) {
