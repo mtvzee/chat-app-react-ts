@@ -1,6 +1,11 @@
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { HiOutlinePhotograph } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import { auth, db, storage } from '../firebase';
 
 type FormData = {
   displayName: string;
@@ -10,13 +15,41 @@ type FormData = {
 };
 
 const Register = () => {
+  const [error, setError] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {};
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      // 新しくアカウントを作成
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+
+      // Cloud Storageにアバター画像をアップロード
+      const avatarRef = ref(storage, `avatar/${data.email}`);
+      await uploadBytes(avatarRef, data.file[0]);
+
+      if (auth.currentUser) {
+        // Authenticationにユーザーの情報を追加する(ユーザー名、プロフィール画像のURL)
+        const downloadURL = await getDownloadURL(avatarRef);
+        await updateProfile(auth.currentUser, {
+          displayName: data.displayName,
+          photoURL: downloadURL,
+        });
+        // 他のユーザーが自分のユーザー情報を参照できるようにfirestoreにユーザー情報を作成
+        await setDoc(doc(db, `userInfo/${auth.currentUser.uid}`), {
+          displayName: data.displayName,
+          email: data.email,
+          photoURL: downloadURL,
+          // uid: auth.currentUser.uid,
+        });
+      }
+    } catch (err) {
+      setError(true);
+    }
+  };
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
@@ -92,6 +125,9 @@ const Register = () => {
           <button className="w-full bg-red-500 text-white py-2 rounded-md hover:scale-105 transition">
             登録
           </button>
+          {error && (
+            <span className="text-sm text-red-600">登録できません</span>
+          )}
         </form>
         <p className="mt-2 text-sm">
           既にアカウントを持っている。
