@@ -1,5 +1,8 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
 
 type FormData = {
   email: string;
@@ -7,13 +10,20 @@ type FormData = {
 };
 
 const Login = () => {
+  const [error, setError] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {};
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+    } catch (err) {
+      setError(true);
+    }
+  };
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
@@ -51,6 +61,9 @@ const Login = () => {
           <button className="w-full bg-red-500 text-white py-2 rounded-md hover:scale-105 transition">
             ログイン
           </button>
+          {error && (
+            <span className="text-sm text-red-600">ログインできません</span>
+          )}
         </form>
         <p className=" mt-2 text-sm">
           アカウントを持っていない？
