@@ -1,14 +1,15 @@
 type Props = {
   width?: number;
   height?: number;
+  src: string;
 };
 
-const Avatar = ({ width = 50, height = 50 }: Props) => {
+const Avatar = ({ width = 50, height = 50, src }: Props) => {
   return (
     <img
       className="rounded-full"
       style={{ width, height }}
-      src="https://source.unsplash.com/random"
+      src={src}
       alt="avatar"
     />
   );

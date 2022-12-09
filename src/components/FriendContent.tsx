@@ -7,7 +7,7 @@ const FriendContent = () => {
   return (
     <div className="flex items-start space-x-1 w-2/3 group">
       <div className="flex-none">
-        <Avatar width={40} height={40} />
+        <Avatar width={40} height={40} src={''} />
       </div>
       <p className="bg-[#f3f3f3] p-2 rounded-lg rounded-tl-none text-lg">
         こんにちは、私の名前は田中太郎です。よろしくお願いします。

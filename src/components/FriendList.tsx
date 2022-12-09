@@ -8,7 +8,7 @@ const FriendList = () => {
   return (
     <ul className="overflow-y-scroll">
       <li className="flex justify-evenly space-x-2 rounded-md py-3 hover:bg-primary-hover cursor-pointer relative group transition">
-        <Avatar />
+        <Avatar src={''} />
         <div className="flex-auto">
           <span className="text-lg">matsutani</span>
           <p className="text-sm">hello</p>

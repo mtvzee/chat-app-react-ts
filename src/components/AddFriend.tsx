@@ -16,7 +16,7 @@ const AddFriend = () => {
         </button>
       </div>
       <div className="flex  space-x-2 rounded-md py-3 bg-primary-hover cursor-pointer transition  relative group">
-        <Avatar />
+        <Avatar src={''}/>
         <span className="text-lg">matsutani</span>
         <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse group-hover:scale-110 transition">
           <AiOutlinePlus className="w-10 h-10" />
