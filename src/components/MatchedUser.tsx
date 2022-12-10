@@ -1,5 +1,12 @@
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { useContext } from 'react';
+import {
+  doc,
+  DocumentData,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import { useContext, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { AuthContext } from '../context/AuthContext';
 import { db } from '../firebase';
@@ -9,9 +16,18 @@ type Props = {
   displayName: string;
   photoURL: string;
   friendId: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setMatchedUsers: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
 };
 
-const MatchedUser = ({ displayName, photoURL, friendId }: Props) => {
+const MatchedUser = ({
+  displayName,
+  photoURL,
+  friendId,
+  setUsername,
+  setMatchedUsers,
+}: Props) => {
+  const [error, setError] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
   const handleAddUser = async () => {
@@ -29,15 +45,14 @@ const MatchedUser = ({ displayName, photoURL, friendId }: Props) => {
             messages: [],
           });
           // 自分のFriendListにチャットのデータを作成
-          await setDoc(doc(db, 'friendList', currentUser.uid), {
-            chatId,
-            timestamp: serverTimestamp(),
-            latestMessage: '',
-            friendInfo: {
+          await updateDoc(doc(db, 'friendList', currentUser.uid), {
+            [chatId + '.friendInfo']: {
               uid: friendId,
               displayName,
               photoURL,
             },
+            [chatId + '.timestamp']: serverTimestamp(),
+            [chatId + '.latestMessage']: '',
           });
           // 友達のFriendListにチャットのデータを作成
           // 相手のフレンドリストに勝手に追加する仕様は良くないかも
@@ -52,7 +67,12 @@ const MatchedUser = ({ displayName, photoURL, friendId }: Props) => {
           //   },
           // });
         }
-      } catch (error) {}
+      } catch (err) {
+        setError(true);
+      } finally {
+        setUsername('');
+        setMatchedUsers(null);
+      }
     }
   };
 
