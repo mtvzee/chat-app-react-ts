@@ -3,6 +3,7 @@ import { doc, onSnapshot, query, Timestamp } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 import { AuthContext } from '../context/AuthContext';
+import { SelectedUserContext } from '../context/SelectedUserContext';
 import { db } from '../firebase';
 import Avatar from './Avatar';
 import FriendDeleteModal from './FriendDeleteModal';
@@ -23,6 +24,7 @@ const FriendList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friendList, setFriendList] = useState<FriendListData>({});
   const { currentUser } = useContext(AuthContext);
+  const { dispatch } = useContext(SelectedUserContext);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -40,6 +42,9 @@ const FriendList = () => {
         <li
           className="flex justify-evenly space-x-2 rounded-md py-3 hover:bg-primary-hover cursor-pointer relative group transition"
           key={friend[0]}
+          onClick={() =>
+            dispatch({ type: 'CHANGE_USER', payload: friend[1].friendInfo })
+          }
         >
           <Avatar src={friend[1].friendInfo.photoURL} />
           <div className="flex-auto">

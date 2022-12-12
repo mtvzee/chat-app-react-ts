@@ -9,14 +9,18 @@ type State = {
     uid: string;
   } | null;
 };
-type Action = {
-  type: 'CHANGE_USER';
-  payload: {
-    displayName: string;
-    photoURL: string;
-    uid: string;
-  };
-};
+type Action =
+  | {
+      type: 'CHANGE_USER';
+      payload: {
+        displayName: string;
+        photoURL: string;
+        uid: string;
+      };
+    }
+  | {
+      type: 'RESET_USER';
+    };
 
 const initialState = {
   chatId: 'null',
@@ -46,6 +50,11 @@ export const SelectedUserContextProvider = ({
             currentUser?.uid > action.payload.uid
               ? currentUser?.uid + action.payload.uid
               : action.payload.uid + currentUser?.uid,
+        };
+      case 'RESET_USER':
+        return {
+          friendInfo: null,
+          chatId: 'null',
         };
       default:
         return state;
