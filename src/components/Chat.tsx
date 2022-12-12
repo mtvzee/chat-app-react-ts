@@ -7,7 +7,6 @@ import DefaultChatArea from './DefaultChatArea';
 
 const Chat = () => {
   const { state } = useContext(SelectedUserContext);
-  console.log(state);
 
   return (
     <>
