@@ -38,6 +38,11 @@ const AddFriend = () => {
     }
   };
 
+  const handleDeleteUsername = () => {
+    setUsername('');
+    setMatchedUsers(null);
+  };
+
   return (
     <div>
       <div className="flex items-center py-4 space-x-3">
@@ -53,7 +58,7 @@ const AddFriend = () => {
           {username && (
             <button
               className="absolute right-2 top-1/2 -translate-y-1/2 z-10 transition hover:scale-110"
-              onClick={() => setUsername('')}
+              onClick={handleDeleteUsername}
             >
               <RxCrossCircled className="w-6 h-6" />
             </button>

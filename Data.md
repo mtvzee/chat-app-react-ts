@@ -1,0 +1,49 @@
+userInfo
+ uid
+  {
+    displayName
+    email
+    photoURL
+  }
+
+friendList
+  uid
+    [
+      {
+        chatId
+        timestamp
+        latestMessage
+        friendInfo:{
+          uid
+          photoURL
+          displayName
+        }
+      },
+    ]
+    
+
+A案
+chats
+  chatId
+    messagesサブコレクション
+      randomId
+        {
+          senderId
+          avatarURL
+          photoURL?
+          text?
+          timestamp
+        }
+
+B案
+chats
+  chatId
+    {messages:[
+      {
+        senderId
+        avatarURL
+        photoURL?
+        text?
+        timestamp
+      }
+    ]}
