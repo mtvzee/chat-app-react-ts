@@ -1,11 +1,8 @@
 import {
-  addDoc,
-  collection,
   doc,
   DocumentData,
   getDoc,
   serverTimestamp,
-  setDoc,
   updateDoc,
 } from 'firebase/firestore';
 import { useContext, useState } from 'react';
@@ -52,18 +49,6 @@ const MatchedUser = ({
             [chatId + '.timestamp']: serverTimestamp(),
             [chatId + '.latestMessage']: '',
           });
-          // 友達のFriendListにチャットのデータを作成
-          // 相手のフレンドリストに勝手に追加する仕様は良くないかも
-          // await setDoc(doc(db, 'friendList', friendId), {
-          //   chatId,
-          //   timestamp: serverTimestamp(),
-          //   latestMessage: '',
-          //   friendInfo: {
-          //     uid: currentUser.uid,
-          //     displayName: currentUser.displayName,
-          //     photoURL: currentUser.photoURL,
-          //   },
-          // });
         }
       } catch (err) {
         setError(true);
