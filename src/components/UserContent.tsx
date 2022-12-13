@@ -1,8 +1,13 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
+import { Content } from '../types/type';
 import DeleteContentModal from './DeleteContentModal';
 
-const UserContent = () => {
+type Props = Omit<Content, 'avatarURL' | 'autoId' | 'senderId'>;
+
+const UserContent = ({ type, photoURL, text, timestamp }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex items-end self-end space-x-1 w-2/3 text-justify group">
       <div className="self-end text-sm">
@@ -12,14 +17,17 @@ const UserContent = () => {
         >
           削除
         </button>
-        <span>12:00</span>
+        <span>{dayjs(timestamp?.toDate()).format('HH:mm')}</span>
       </div>
-      <p className="bg-[#93ed53] p-2 rounded-lg rounded-tr-none text-lg ">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque,
-        corrupti! Totam esse illum officia. Voluptate quo, nesciunt, repellendus
-        possimus, totam aliquam minus expedita doloremque tempore blanditiis ea
-        culpa accusamus inventore!
-      </p>
+      {type === 'TEXT' ? (
+        <p className="bg-[#93ed53] p-2 rounded-lg rounded-tr-none text-lg ">
+          {text}
+        </p>
+      ) : (
+        <div className="w-[200px] h-[200px]">
+          <img src={photoURL} alt="photo" />
+        </div>
+      )}
       {isOpen && <DeleteContentModal setIsOpen={setIsOpen} />}
     </div>
   );

@@ -27,6 +27,7 @@ const ChatForm = () => {
         await uploadBytes(imageRef, image);
         const downloadURL = await getDownloadURL(imageRef);
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
+          type:'IMAGE',
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           photoURL: downloadURL,
@@ -35,6 +36,7 @@ const ChatForm = () => {
       } else {
         // テキストを送信の場合
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
+          type:'TEXT',
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           text,

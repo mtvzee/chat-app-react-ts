@@ -1,19 +1,33 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
+import { Content } from '../types/type';
 import Avatar from './Avatar';
 import DeleteContentModal from './DeleteContentModal';
 
-const FriendContent = () => {
+type Props =  Omit<Content, 'autoId' | 'senderId'>;
+
+const FriendContent = ({
+  type,
+  text,
+  timestamp,
+  avatarURL,
+  photoURL,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-start space-x-1 w-2/3 group">
       <div className="flex-none">
-        <Avatar width={40} height={40} src={''} />
+        <Avatar width={40} height={40} src={avatarURL} />
       </div>
-      <p className="bg-[#f3f3f3] p-2 rounded-lg rounded-tl-none text-lg">
-        こんにちは、私の名前は田中太郎です。よろしくお願いします。
-        こんにちは、私の名前は田中太郎です。よろしくお願いします。
-        こんにちは、私の名前は田中太郎です。よろしくお願いします。
-      </p>
+      {type === 'TEXT' ? (
+        <p className="bg-[#93ed53] p-2 rounded-lg rounded-tr-none text-lg ">
+          {text}
+        </p>
+      ) : (
+        <div className="w-[200px] h-[200px] ">
+          <img src={photoURL} alt="photo" />
+        </div>
+      )}
       <div className="self-end text-sm">
         <button
           className="group-hover:block hidden"
@@ -21,7 +35,7 @@ const FriendContent = () => {
         >
           削除
         </button>
-        <span>12:00</span>
+        <span>{dayjs(timestamp?.toDate()).format('HH:mm')}</span>
       </div>
       {isOpen && <DeleteContentModal setIsOpen={setIsOpen} />}
     </div>
