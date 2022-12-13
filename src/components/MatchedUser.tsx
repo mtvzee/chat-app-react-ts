@@ -1,4 +1,6 @@
 import {
+  addDoc,
+  collection,
   doc,
   DocumentData,
   getDoc,
@@ -40,10 +42,6 @@ const MatchedUser = ({
       try {
         const res = await getDoc(doc(db, 'chats', chatId));
         if (!res.exists()) {
-          // chatsの中にchatIdがなければチャットを作成
-          await setDoc(doc(db, 'chats', chatId), {
-            messages: [],
-          });
           // 自分のFriendListにチャットのデータを作成
           await updateDoc(doc(db, 'friendList', currentUser.uid), {
             [chatId + '.friendInfo']: {
