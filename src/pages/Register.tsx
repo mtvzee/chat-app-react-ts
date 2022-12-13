@@ -43,7 +43,6 @@ const Register = () => {
           displayName: data.displayName,
           email: data.email,
           photoURL: downloadURL,
-          // uid: auth.currentUser.uid,
         });
         // 空のfriendListを作成
         await setDoc(doc(db, 'friendList', auth.currentUser.uid), {});

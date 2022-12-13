@@ -39,7 +39,7 @@ const ChatArea = () => {
   // コンテンツがテキストの場合
   return (
     <div className="flex-auto overflow-y-scroll">
-      <div className="w-[90%] mx-auto flex flex-col space-y-3 py-4 ">
+      <div className="w-[90%] h-full mx-auto flex flex-col space-y-3 py-4 ">
         {/* TODO:ユーザーによってコンテンツの表示を分岐する */}
         {contents.map((content) =>
           content.senderId === currentUser?.uid ? (

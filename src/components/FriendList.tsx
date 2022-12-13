@@ -52,7 +52,7 @@ const FriendList = () => {
             <p className="text-sm">{friend[1].latestMessage}</p>
           </div>
           <span className="text-sm">
-            {dayjs(friend[1]?.timestamp.toDate()).format('YYYY/MM/DD HH:mm:ss')}
+            {dayjs(friend[1]?.timestamp?.toDate()).format('YYYY/MM/DD HH:mm:ss')}
           </span>
           <button
             className="absolute bottom-2 right-2 hidden group-hover:block hover:scale-110 hover:text-red-500 transition"

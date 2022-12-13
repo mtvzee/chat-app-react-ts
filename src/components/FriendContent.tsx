@@ -15,18 +15,20 @@ const FriendContent = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex items-start space-x-1 w-2/3 group">
+    <div className="flex items-start space-x-1 group max-w-max">
       <div className="flex-none">
         <Avatar width={40} height={40} src={avatarURL} />
       </div>
       {type === 'TEXT' ? (
-        <p className="bg-[#93ed53] p-2 rounded-lg rounded-tr-none text-lg ">
+        <p className="bg-[#f3f3f3] p-2 rounded-lg rounded-tl-none text-lg">
           {text}
         </p>
       ) : (
-        <div className="w-[200px] h-[200px] ">
-          <img src={photoURL} alt="photo" />
-        </div>
+        <img
+          src={photoURL}
+          alt="photo"
+          className="w-[200px] h-[200px] object-cover"
+        />
       )}
       <div className="self-end text-sm">
         <button

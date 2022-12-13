@@ -9,7 +9,7 @@ const UserContent = ({ type, photoURL, text, timestamp }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex items-end self-end space-x-1 w-2/3 text-justify group">
+    <div className="flex justify-end items-end self-end space-x-1 text-justify group max-w-max">
       <div className="self-end text-sm">
         <button
           className="group-hover:block hidden ml-auto"
@@ -24,9 +24,11 @@ const UserContent = ({ type, photoURL, text, timestamp }: Props) => {
           {text}
         </p>
       ) : (
-        <div className="w-[200px] h-[200px]">
-          <img src={photoURL} alt="photo" />
-        </div>
+        <img
+          src={photoURL}
+          alt="photo"
+          className="w-[200px] h-[200px] object-cover"
+        />
       )}
       {isOpen && <DeleteContentModal setIsOpen={setIsOpen} />}
     </div>

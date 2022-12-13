@@ -22,7 +22,7 @@ const ChatForm = () => {
         // cloud storageに選択した画像をアップロードして、その画像のURLをダウンロード
         const imageRef = ref(
           storage,
-          `photo/${currentUser?.uid}/${crypto.randomUUID()}`
+          `image/${currentUser?.uid}/${crypto.randomUUID()}`
         );
         await uploadBytes(imageRef, image);
         const downloadURL = await getDownloadURL(imageRef);
