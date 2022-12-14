@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
-import { doc, onSnapshot, query, Timestamp } from 'firebase/firestore';
+import { doc, onSnapshot, Timestamp } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
-import { BsTrashFill } from 'react-icons/bs';
 import { AuthContext } from '../context/AuthContext';
 import { SelectedUserContext } from '../context/SelectedUserContext';
 import { db } from '../firebase';
 import Avatar from './Avatar';
-import FriendDeleteModal from './FriendDeleteModal';
+import FriendDeleteBtn from './FriendDeleteBtn';
 
 type FriendListData = {
   [key: string]: {
@@ -21,7 +20,6 @@ type FriendListData = {
 };
 
 const FriendList = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [friendList, setFriendList] = useState<FriendListData>({});
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(SelectedUserContext);
@@ -54,13 +52,11 @@ const FriendList = () => {
           <span className="text-sm">
             {dayjs(friend[1]?.timestamp?.toDate()).format('HH:mm')}
           </span>
-          <button
-            className="absolute bottom-2 right-2 hidden group-hover:block hover:scale-110 hover:text-red-500 transition"
-            onClick={() => setIsOpen(true)}
-          >
-            <BsTrashFill className="w-4 h-4" />
-          </button>
-          {isOpen && <FriendDeleteModal setIsOpen={setIsOpen} />}
+          <FriendDeleteBtn
+            chatId={friend[0]}
+            displayName={friend[1].friendInfo.displayName}
+            photoURL={friend[1].friendInfo.photoURL}
+          />
         </li>
       ))}
     </ul>
