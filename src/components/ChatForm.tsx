@@ -108,7 +108,9 @@ const ChatForm = () => {
       >
         <HiOutlinePhotograph className="w-8 h-8" />
       </label>
-      <button className="hover:scale-110 transition">
+      <button
+        className={` ${(text || image) && 'text-blue-500 animate-bounce'}`}
+      >
         <AiOutlineSend className="w-8 h-8" />
       </button>
     </form>
