@@ -47,7 +47,7 @@ const MatchedUser = ({
               photoURL,
             },
             [chatId + '.timestamp']: serverTimestamp(),
-            [chatId + '.latestMessage']: '',
+            [chatId + '.latestContent']: '',
           });
         }
       } catch (err) {

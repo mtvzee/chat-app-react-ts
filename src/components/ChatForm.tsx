@@ -1,4 +1,10 @@
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useContext, useState } from 'react';
 import { AiOutlineSend } from 'react-icons/ai';
@@ -27,20 +33,42 @@ const ChatForm = () => {
         await uploadBytes(imageRef, image);
         const downloadURL = await getDownloadURL(imageRef);
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
-          type:'IMAGE',
+          type: 'IMAGE',
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           photoURL: downloadURL,
           timestamp: serverTimestamp(),
         });
+
+        // 自分のfriendListのデータを更新
+        await updateDoc(doc(db, `friendList/${currentUser?.uid}`), {
+          [state.chatId +
+          '.latestContent']: `${currentUser?.displayName}が写真を送信しました`,
+          [state.chatId + '.timestamp']: serverTimestamp(),
+        });
+        // 友達のfriendListのデータを更新
+        await updateDoc(doc(db, `friendList/${state.friendInfo?.uid}`), {
+          [state.chatId +
+          '.latestContent']: `${currentUser?.displayName}が写真を送信しました`,
+          [state.chatId + '.timestamp']: serverTimestamp(),
+        });
       } else {
         // テキストを送信の場合
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
-          type:'TEXT',
+          type: 'TEXT',
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           text,
           timestamp: serverTimestamp(),
+        }); // 自分のfriendListのデータを更新
+        await updateDoc(doc(db, `friendList/${currentUser?.uid}`), {
+          [state.chatId + '.latestContent']: text,
+          [state.chatId + '.timestamp']: serverTimestamp(),
+        });
+        // 友達のfriendListのデータを更新
+        await updateDoc(doc(db, `friendList/${state.friendInfo?.uid}`), {
+          [state.chatId + '.latestContent']: text,
+          [state.chatId + '.timestamp']: serverTimestamp(),
         });
       }
     } catch (error) {

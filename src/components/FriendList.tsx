@@ -15,7 +15,7 @@ type FriendListData = {
       photoURL: string;
       uid: string;
     };
-    latestMessage: string;
+    latestContent: string;
     timestamp: Timestamp;
   };
 };
@@ -49,10 +49,10 @@ const FriendList = () => {
           <Avatar src={friend[1].friendInfo.photoURL} />
           <div className="flex-auto">
             <span className="text-lg">{friend[1].friendInfo.displayName}</span>
-            <p className="text-sm">{friend[1].latestMessage}</p>
+            <p className="text-sm">{friend[1].latestContent}</p>
           </div>
           <span className="text-sm">
-            {dayjs(friend[1]?.timestamp?.toDate()).format('YYYY/MM/DD HH:mm:ss')}
+            {dayjs(friend[1]?.timestamp?.toDate()).format('HH:mm')}
           </span>
           <button
             className="absolute bottom-2 right-2 hidden group-hover:block hover:scale-110 hover:text-red-500 transition"
