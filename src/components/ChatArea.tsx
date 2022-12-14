@@ -5,7 +5,7 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { SelectedUserContext } from '../context/SelectedUserContext';
 import { db } from '../firebase';
@@ -13,12 +13,11 @@ import { Content } from '../types/type';
 import FriendContent from './FriendContent';
 import UserContent from './UserContent';
 
-// type Contents = ImageContent | TextContent;
-
 const ChatArea = () => {
   const [contents, setContents] = useState<Content[]>([]);
   const { currentUser } = useContext(AuthContext);
   const { state } = useContext(SelectedUserContext);
+  const endOfContentsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const q = query(
@@ -36,11 +35,13 @@ const ChatArea = () => {
     return unsub;
   }, [state]);
 
-  // コンテンツがテキストの場合
+  useEffect(() => {
+    endOfContentsRef.current?.scrollIntoView();
+  }, [contents]);
+
   return (
     <div className="flex-auto overflow-y-scroll">
-      <div className="w-[90%] h-full mx-auto flex flex-col space-y-3 py-4 ">
-        {/* TODO:ユーザーによってコンテンツの表示を分岐する */}
+      <div className="w-[90%] mx-auto flex flex-col space-y-3 py-3 ">
         {contents.map((content) =>
           content.senderId === currentUser?.uid ? (
             <UserContent
@@ -61,6 +62,7 @@ const ChatArea = () => {
             />
           )
         )}
+        <div ref={endOfContentsRef} />
       </div>
     </div>
   );
