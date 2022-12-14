@@ -3,9 +3,17 @@ import { useState } from 'react';
 import { Content } from '../types/type';
 import DeleteContentModal from './DeleteContentModal';
 
-type Props = Omit<Content, 'avatarURL' | 'autoId' | 'senderId'>;
+type Props = Omit<Content, 'avatarURL'>;
 
-const UserContent = ({ type, photoURL, text, timestamp }: Props) => {
+const UserContent = ({
+  type,
+  autoId,
+  photoURL,
+  text,
+  timestamp,
+  imageUUID,
+  senderId,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,7 +38,16 @@ const UserContent = ({ type, photoURL, text, timestamp }: Props) => {
           className="w-[200px] h-[200px] object-cover"
         />
       )}
-      {isOpen && <DeleteContentModal setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <DeleteContentModal
+          autoId={autoId}
+          imageUUID={imageUUID}
+          text={text}
+          photoURL={photoURL}
+          senderId={senderId}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </div>
   );
 };

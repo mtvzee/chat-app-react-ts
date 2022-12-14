@@ -26,10 +26,8 @@ const ChatForm = () => {
       if (image) {
         // 画像を送信する場合
         // cloud storageに選択した画像をアップロードして、その画像のURLをダウンロード
-        const imageRef = ref(
-          storage,
-          `image/${currentUser?.uid}/${crypto.randomUUID()}`
-        );
+        const imageUUID = crypto.randomUUID();
+        const imageRef = ref(storage, `image/${currentUser?.uid}/${imageUUID}`);
         await uploadBytes(imageRef, image);
         const downloadURL = await getDownloadURL(imageRef);
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
@@ -37,6 +35,7 @@ const ChatForm = () => {
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           photoURL: downloadURL,
+          imageUUID,
           timestamp: serverTimestamp(),
         });
 

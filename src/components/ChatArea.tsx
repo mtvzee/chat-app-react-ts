@@ -46,6 +46,9 @@ const ChatArea = () => {
           content.senderId === currentUser?.uid ? (
             <UserContent
               key={content.autoId}
+              autoId={content.autoId}
+              imageUUID={content.imageUUID}
+              senderId={content.senderId}
               type={content.type}
               photoURL={content.photoURL}
               text={content.text}
@@ -54,6 +57,9 @@ const ChatArea = () => {
           ) : (
             <FriendContent
               key={content.autoId}
+              autoId={content.autoId}
+              imageUUID={content.imageUUID}
+              senderId={content.senderId}
               type={content.type}
               avatarURL={content.avatarURL}
               photoURL={content.photoURL}

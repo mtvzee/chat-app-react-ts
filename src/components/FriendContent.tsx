@@ -4,14 +4,17 @@ import { Content } from '../types/type';
 import Avatar from './Avatar';
 import DeleteContentModal from './DeleteContentModal';
 
-type Props =  Omit<Content, 'autoId' | 'senderId'>;
+type Props = Content;
 
 const FriendContent = ({
   type,
+  autoId,
   text,
   timestamp,
   avatarURL,
   photoURL,
+  senderId,
+  imageUUID,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -39,7 +42,16 @@ const FriendContent = ({
         </button>
         <span>{dayjs(timestamp?.toDate()).format('HH:mm')}</span>
       </div>
-      {isOpen && <DeleteContentModal setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <DeleteContentModal
+          autoId={autoId}
+          imageUUID={imageUUID}
+          text={text}
+          photoURL={photoURL}
+          senderId={senderId}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </div>
   );
 };
