@@ -14,27 +14,40 @@ import MatchedUser from './MatchedUser';
 const AddFriend = () => {
   const [username, setUsername] = useState('');
   const [matchedUsers, setMatchedUsers] = useState<DocumentData[] | null>(null);
-  const [error, setError] = useState(false);
 
   const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.code === 'Enter' && handleSearchUser();
   };
   const handleSearchUser = async () => {
-    if (!username) return;
-    const q = query(
-      collection(db, 'userInfo'),
-      where('displayName', '==', username)
-    );
     try {
-      const querySnapshot = await getDocs(q);
-      setMatchedUsers(
-        querySnapshot.docs.map((doc) => ({
-          uid: doc.id,
-          ...doc.data(),
-        }))
-      );
+      // inputの中身が空欄の場合、ダミーのユーザーを表示する
+      if (!username) {
+        const q = query(
+          collection(db, 'userInfo'),
+          where('displayName', '==', 'Anonymous')
+        );
+        const querySnapshot = await getDocs(q);
+        setMatchedUsers(
+          querySnapshot.docs.map((doc) => ({
+            uid: doc.id,
+            ...doc.data(),
+          }))
+        );
+      } else {
+        const q = query(
+          collection(db, 'userInfo'),
+          where('displayName', '==', username)
+        );
+        const querySnapshot = await getDocs(q);
+        setMatchedUsers(
+          querySnapshot.docs.map((doc) => ({
+            uid: doc.id,
+            ...doc.data(),
+          }))
+        );
+      }
     } catch (err) {
-      setError(true);
+      console.error(err);
     }
   };
 
