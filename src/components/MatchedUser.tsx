@@ -16,6 +16,7 @@ type Props = {
   photoURL: string;
   friendId: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setIsDummy: React.Dispatch<React.SetStateAction<boolean>>;
   setMatchedUsers: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
 };
 
@@ -24,9 +25,9 @@ const MatchedUser = ({
   photoURL,
   friendId,
   setUsername,
+  setIsDummy,
   setMatchedUsers,
 }: Props) => {
-  const [error, setError] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
   const handleAddUser = async () => {
@@ -51,9 +52,10 @@ const MatchedUser = ({
           });
         }
       } catch (err) {
-        setError(true);
+        console.error(err);
       } finally {
         setUsername('');
+        setIsDummy(false);
         setMatchedUsers(null);
       }
     }

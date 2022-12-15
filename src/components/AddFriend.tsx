@@ -13,6 +13,7 @@ import MatchedUser from './MatchedUser';
 
 const AddFriend = () => {
   const [username, setUsername] = useState('');
+  const [isDummy, setIsDummy] = useState(false);
   const [matchedUsers, setMatchedUsers] = useState<DocumentData[] | null>(null);
 
   const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -33,6 +34,7 @@ const AddFriend = () => {
             ...doc.data(),
           }))
         );
+        setIsDummy(true);
       } else {
         const q = query(
           collection(db, 'userInfo'),
@@ -53,6 +55,7 @@ const AddFriend = () => {
 
   const handleDeleteUsername = () => {
     setUsername('');
+    setIsDummy(false);
     setMatchedUsers(null);
   };
 
@@ -68,7 +71,7 @@ const AddFriend = () => {
             onChange={(e) => setUsername(e.target.value)}
             onKeyDown={(e) => handleEnterKey(e)}
           />
-          {username && (
+          {(isDummy || username) && (
             <button
               className="absolute right-2 top-1/2 -translate-y-1/2 z-10 transition hover:scale-110"
               onClick={handleDeleteUsername}
@@ -93,6 +96,7 @@ const AddFriend = () => {
           photoURL={matchedUser.photoURL}
           friendId={matchedUser.uid}
           setUsername={setUsername}
+          setIsDummy={setIsDummy}
           setMatchedUsers={setMatchedUsers}
         />
       ))}
