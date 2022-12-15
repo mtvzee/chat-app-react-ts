@@ -10,27 +10,24 @@ const SidebarHeader = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <div className="flex items-center justify-between border-b border-[#263d54] py-4 ">
+    <div className="relative flex items-center justify-between border-b border-[#263d54] py-4 ">
       <div className="flex items-center space-x-3 ">
         <Avatar width={40} height={40} src={currentUser?.photoURL ?? ''} />
         <span className="text-xl">{currentUser?.displayName}</span>
       </div>
-      <button className="relative" onClick={() => setIsOpen(!isOpen)}>
+      <button onClick={() => setIsOpen(!isOpen)}>
         <BsThreeDotsVertical className="w-6 h-6 hover:scale-110 transition " />
-        {isOpen && (
-          <ul className="absolute top-10 right-0 w-52 bg-black border border-gray-600 rounded-md overflow-hidden z-10">
-            <li className="p-3 hover:bg-primary-hover border-b border-gray-600 transition">
-              プロフィールを変更
-            </li>
-            <li
-              className="p-3 hover:bg-primary-hover transition"
-              onClick={() => signOut(auth)}
-            >
-              ログアウト
-            </li>
-          </ul>
-        )}
       </button>
+      {isOpen && (
+        <ul className="absolute top-16 right-0 w-52 bg-black border border-gray-600 rounded-md overflow-hidden z-10">
+          <li
+            className="p-3 hover:bg-primary-hover transition"
+            onClick={() => signOut(auth)}
+          >
+            ログアウト
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

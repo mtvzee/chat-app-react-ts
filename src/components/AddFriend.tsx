@@ -65,7 +65,11 @@ const AddFriend = () => {
           )}
         </span>
         <button onClick={handleSearchUser}>
-          <BsFillPersonPlusFill className="w-8 h-8 hover:scale-110 transition" />
+          <BsFillPersonPlusFill
+            className={`w-8 h-8 hover:scale-110 transition ${
+              username && 'animate-pulse'
+            }`}
+          />
         </button>
       </div>
 

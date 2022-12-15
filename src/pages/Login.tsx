@@ -27,9 +27,9 @@ const Login = () => {
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
-      <div className="bg-white  rounded-md py-5 px-10 w-[400px] h-[300px] justify-center">
+      <div className="bg-white  rounded-md py-5 px-10 w-[400px] h-[350px] justify-center">
         <h1 className="text-2xl text-center">ログイン</h1>
-        <form className="mt-10 space-y-7" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-10 space-y-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative">
             <input
               className={`form-input ${errors.email && 'error-form-input'}`}
@@ -58,14 +58,18 @@ const Login = () => {
               <p className="error-form-msg">{errors.password.message}</p>
             )}
           </div>
-          <button className="w-full bg-red-500 text-white py-2 rounded-md hover:scale-105 transition">
-            ログイン
-          </button>
-          {error && (
-            <span className="text-sm text-red-600">ログインできません</span>
-          )}
+          <div className="relative">
+            <button className="w-full bg-red-500 text-white py-2 rounded-md hover:scale-105 transition">
+              ログイン
+            </button>
+            {error && (
+              <span className="text-sm text-red-600 absolute -bottom-6 left-0">
+                ログインできません
+              </span>
+            )}
+          </div>
         </form>
-        <p className=" mt-2 text-sm">
+        <p className=" mt-8 text-sm">
           アカウントを持っていない？
           <Link to="/register" className="underline">
             作成
