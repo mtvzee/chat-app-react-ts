@@ -58,9 +58,9 @@ const FriendList = () => {
               <span className="text-lg">
                 {friend[1].friendInfo.displayName}
               </span>
-              <p className="text-sm">{friend[1].latestContent}</p>
+              <p className="text-sm text-gray-300">{friend[1].latestContent}</p>
             </div>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-300">
               {dayjs(friend[1]?.timestamp?.toDate()).format('HH:mm')}
             </span>
             <FriendDeleteBtn
