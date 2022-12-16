@@ -23,7 +23,9 @@ const DeleteContentModal = ({
 }: Props) => {
   const { state } = useContext(SelectedUserContext);
   const handleDelete = async () => {
+    // firestoreから投稿削除
     await deleteDoc(doc(db, `chats/${state.chatId}/messages/${autoId}`));
+    // 削除対象が画像の場合、cloud storageから削除
     if (photoURL) {
       const deleteRef = ref(storage, `image/${senderId}/${imageUUID}`);
       await deleteObject(deleteRef);

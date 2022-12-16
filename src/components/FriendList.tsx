@@ -1,12 +1,5 @@
 import dayjs from 'dayjs';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  Timestamp,
-} from 'firebase/firestore';
+import { doc, onSnapshot, Timestamp } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { SelectedUserContext } from '../context/SelectedUserContext';
@@ -43,6 +36,7 @@ const FriendList = () => {
 
   return (
     <ul className="overflow-y-scroll">
+      {/* 降順でフレンドリストを表示 */}
       {Object.entries(friendList)
         .sort((a, b) => b[1].timestamp?.seconds - a[1].timestamp?.seconds)
         .map((friend) => (

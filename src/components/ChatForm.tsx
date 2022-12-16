@@ -30,6 +30,8 @@ const ChatForm = () => {
         const imageRef = ref(storage, `image/${currentUser?.uid}/${imageUUID}`);
         await uploadBytes(imageRef, image);
         const downloadURL = await getDownloadURL(imageRef);
+
+        // messagesサブコレクションに投稿内容を追加（画像）
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
           type: 'IMAGE',
           senderId: currentUser?.uid,
@@ -52,14 +54,17 @@ const ChatForm = () => {
           [state.chatId + '.timestamp']: serverTimestamp(),
         });
       } else {
-        // テキストを送信の場合
+        // テキストを送信する場合
+        // messagesサブコレクションに投稿内容を追加（テキスト）
         await addDoc(collection(db, 'chats', state.chatId, 'messages'), {
           type: 'TEXT',
           senderId: currentUser?.uid,
           avatarURL: currentUser?.photoURL,
           text,
           timestamp: serverTimestamp(),
-        }); // 自分のfriendListのデータを更新
+        }); 
+        
+        // 自分のfriendListのデータを更新
         await updateDoc(doc(db, `friendList/${currentUser?.uid}`), {
           [state.chatId + '.latestContent']: text,
           [state.chatId + '.timestamp']: serverTimestamp(),

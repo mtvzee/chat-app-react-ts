@@ -5,7 +5,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from 'firebase/firestore';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { AuthContext } from '../context/AuthContext';
 import { db } from '../firebase';
