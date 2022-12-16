@@ -21,6 +21,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
     } catch (err) {
+      console.error(err);
       setError(true);
     }
   };
