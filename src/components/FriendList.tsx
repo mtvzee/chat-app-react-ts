@@ -50,16 +50,16 @@ const FriendList = () => {
             <Avatar src={friend[1].friendInfo?.photoURL} />
             <div className="flex-auto">
               <span className="text-lg">
-                {friend[1].friendInfo.displayName}
+                {friend[1].friendInfo?.displayName}
               </span>
-              <p className="text-sm text-gray-300">{friend[1].latestContent}</p>
+              <p className="text-sm text-gray-300">{friend[1]?.latestContent}</p>
             </div>
             <span className="text-sm text-gray-300">
               {dayjs(friend[1]?.timestamp?.toDate()).format('HH:mm')}
             </span>
             <FriendDeleteBtn
               chatId={friend[0]}
-              displayName={friend[1].friendInfo.displayName}
+              displayName={friend[1].friendInfo?.displayName}
               photoURL={friend[1].friendInfo?.photoURL}
             />
           </li>
