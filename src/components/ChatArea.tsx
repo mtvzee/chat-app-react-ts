@@ -35,6 +35,7 @@ const ChatArea = () => {
     return unsub;
   }, [state]);
 
+  // 最新のコンテンツにフォーカスが合う
   useEffect(() => {
     endOfContentsRef.current?.scrollIntoView();
   }, [contents]);
@@ -42,6 +43,7 @@ const ChatArea = () => {
   return (
     <div className="flex-auto overflow-y-scroll">
       <div className="w-[90%] mx-auto flex flex-col space-y-3 py-3 ">
+        {/* 投稿者の違いによって表示するUIを区別する */}
         {contents.map((content) =>
           content.senderId === currentUser?.uid ? (
             <UserContent
