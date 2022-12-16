@@ -34,6 +34,7 @@ export const SelectedUserContext = createContext(
   }
 );
 
+// フレンドリストを選択した時、そのフレンドのユーザー情報とチャットIDを保持する
 export const SelectedUserContextProvider = ({
   children,
 }: {
@@ -61,6 +62,7 @@ export const SelectedUserContextProvider = ({
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  
   return (
     <SelectedUserContext.Provider value={{ state, dispatch }}>
       {children}
