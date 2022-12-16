@@ -57,9 +57,6 @@ const ChatArea = () => {
           ) : (
             <FriendContent
               key={content.autoId}
-              autoId={content.autoId}
-              imageUUID={content.imageUUID}
-              senderId={content.senderId}
               type={content.type}
               avatarURL={content.avatarURL}
               photoURL={content.photoURL}

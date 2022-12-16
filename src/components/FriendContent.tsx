@@ -1,22 +1,16 @@
 import dayjs from 'dayjs';
-import { useState } from 'react';
 import { Content } from '../types/type';
 import Avatar from './Avatar';
-import DeleteContentModal from './DeleteContentModal';
 
-type Props = Content;
+type Props = Omit<Content, 'autoId' | 'senderId' | 'imageUUID'>;
 
 const FriendContent = ({
   type,
-  autoId,
   text,
   timestamp,
   avatarURL,
   photoURL,
-  senderId,
-  imageUUID,
 }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-start space-x-1 group max-w-max">
       <div className="flex-none">
@@ -34,24 +28,8 @@ const FriendContent = ({
         />
       )}
       <div className="self-end text-sm">
-        <button
-          className="group-hover:block hidden"
-          onClick={() => setIsOpen(true)}
-        >
-          削除
-        </button>
         <span>{dayjs(timestamp?.toDate()).format('HH:mm')}</span>
       </div>
-      {isOpen && (
-        <DeleteContentModal
-          autoId={autoId}
-          imageUUID={imageUUID}
-          text={text}
-          photoURL={photoURL}
-          senderId={senderId}
-          setIsOpen={setIsOpen}
-        />
-      )}
     </div>
   );
 };
