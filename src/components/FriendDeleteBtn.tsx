@@ -27,7 +27,7 @@ const FriendDeleteBtn = ({ chatId, displayName, photoURL }: Props) => {
         <FriendDeleteModal
           chatId={chatId}
           friendName={displayName}
-          photoURL={photoURL}
+          photoURL={photoURL ?? ''}
           setIsOpen={setIsOpen}
         />
       )}

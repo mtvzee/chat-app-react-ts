@@ -33,7 +33,7 @@ const UserContent = ({
         </p>
       ) : (
         <img
-          src={photoURL}
+          src={photoURL ?? ''}
           alt="photo"
           className="w-[200px] h-[200px] object-cover"
         />

@@ -35,7 +35,7 @@ const FriendDeleteModal = ({
       >
         <h2 className="text-lg">友達を削除しますか？</h2>
         <div className="flex items-center space-x-6">
-          <Avatar width={60} height={60} src={photoURL} />
+          <Avatar width={60} height={60} src={photoURL ?? ''} />
           <p className="text-2xl">{friendName}</p>
         </div>
         <div className="space-x-4">

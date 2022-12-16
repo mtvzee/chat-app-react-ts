@@ -47,7 +47,7 @@ const FriendList = () => {
               dispatch({ type: 'CHANGE_USER', payload: friend[1].friendInfo })
             }
           >
-            <Avatar src={friend[1].friendInfo.photoURL} />
+            <Avatar src={friend[1].friendInfo?.photoURL} />
             <div className="flex-auto">
               <span className="text-lg">
                 {friend[1].friendInfo.displayName}
@@ -60,7 +60,7 @@ const FriendList = () => {
             <FriendDeleteBtn
               chatId={friend[0]}
               displayName={friend[1].friendInfo.displayName}
-              photoURL={friend[1].friendInfo.photoURL}
+              photoURL={friend[1].friendInfo?.photoURL}
             />
           </li>
         ))}
