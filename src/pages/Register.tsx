@@ -1,11 +1,11 @@
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { HiOutlinePhotograph } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
-import { auth, db, storage } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { HiOutlinePhotograph } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { auth, db, storage } from "../firebase";
 
 type FormData = {
   displayName: string;
@@ -45,7 +45,7 @@ const Register = () => {
           photoURL: downloadURL,
         });
         // 空のfriendListを作成
-        await setDoc(doc(db, 'friendList', auth.currentUser.uid), {});
+        await setDoc(doc(db, "friendList", auth.currentUser.uid), {});
       }
     } catch (err) {
       setError(true);
@@ -54,62 +54,67 @@ const Register = () => {
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
-      <div className="bg-white  rounded-md py-5 px-10 w-[400px] h-[425px] justify-center">
-        <h1 className="text-2xl text-center">アカウントを登録する</h1>
-        <form className="mt-8 space-y-7" onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative">
-            <input
-              className={`form-input ${
-                errors.displayName && 'error-form-input'
-              }`}
-              type="text"
-              placeholder="名前"
-              {...register('displayName', {
-                required: '名前を入力してください',
-                minLength: { value: 3, message: '3文字以上にしてください' },
-                maxLength: { value: 10, message: '10文字以下にしてください' },
-              })}
-            />
-            {errors.displayName && (
-              <p className="error-form-msg">{errors.displayName.message}</p>
-            )}
+      <div className="bg-white  rounded-lg py-5 px-10 w-[450px] h-[500px] justify-center">
+        <h1 className="text-2xl text-center">アカウントを登録</h1>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
+          <div className="space-y-10">
+            <div className="relative">
+              <input
+                className="form-input"
+                placeholder=" "
+                type="text"
+                {...register("displayName", {
+                  required: "名前を入力してください",
+                  minLength: { value: 3, message: "3文字以上にしてください" },
+                  maxLength: { value: 10, message: "10文字以下にしてください" },
+                })}
+              />
+              <span className="form-span">名前</span>
+              <i className="form-i" />
+              {errors.displayName && (
+                <p className="error-form-msg">{errors.displayName.message}</p>
+              )}
+            </div>
+            <div className="relative">
+              <input
+                className="form-input"
+                type="email"
+                placeholder=" "
+                {...register("email", {
+                  required: "メールアドレスを入力してください",
+                })}
+              />
+              <span className="form-span">メールアドレス</span>
+              <i className="form-i" />
+              {errors.email && (
+                <p className="error-form-msg">{errors.email.message}</p>
+              )}
+            </div>
+            <div className="relative">
+              <input
+                className="form-input"
+                type="password"
+                placeholder=" "
+                {...register("password", {
+                  required: "パスワードを入力してください",
+                  minLength: { value: 8, message: "8文字以上にしてください" },
+                  maxLength: { value: 15, message: "15文字以下にしてください" },
+                })}
+              />
+              <span className="form-span">パスワード</span>
+              <i className="form-i" />
+              {errors.password && (
+                <p className="error-form-msg">{errors.password.message}</p>
+              )}
+            </div>
           </div>
-          <div className="relative">
+          <div className="relative mt-5">
             <input
-              className={`form-input ${errors.email && 'error-form-input'}`}
-              type="email"
-              placeholder="メールアドレス"
-              {...register('email', {
-                required: 'メールアドレスを入力してください',
-              })}
-            />
-            {errors.email && (
-              <p className="error-form-msg">{errors.email.message}</p>
-            )}
-          </div>
-          <div className="relative">
-            <input
-              className={`form-input ${errors.password && 'error-form-input'}`}
-              type="password"
-              placeholder="パスワード"
-              {...register('password', {
-                required: 'パスワードを入力してください',
-                minLength: { value: 8, message: '8文字以上にしてください' },
-                maxLength: { value: 15, message: '15文字以下にしてください' },
-              })}
-            />
-            {errors.password && (
-              <p className="error-form-msg">{errors.password.message}</p>
-            )}
-          </div>
-          <div className="relative">
-            <input
-              className={`form-input ${errors.file && 'error-form-input'}`}
               type="file"
               id="file"
-              style={{ display: 'none' }}
-              {...register('file', {
-                required: 'アイコン画像を選択してください',
+              style={{ display: "none" }}
+              {...register("file", {
+                required: "アイコン画像を選択してください",
               })}
             />
             <label
@@ -123,14 +128,18 @@ const Register = () => {
               <p className="error-form-msg">{errors.file.message}</p>
             )}
           </div>
-          <button className="w-full bg-red-500 text-white py-2 rounded-md hover:scale-105 transition">
-            登録
-          </button>
-          {error && (
-            <span className="text-sm text-red-600">登録できません</span>
-          )}
+          <div className="relative mt-7">
+            <button className="bg-primary text-white py-2 px-6 rounded-md font-bold hover:scale-105 transition">
+              登録
+            </button>
+            {error && (
+              <span className="text-sm text-red-600 absolute -bottom-5 left-0">
+                アカウントを登録できません
+              </span>
+            )}
+          </div>
         </form>
-        <p className="mt-2 text-sm">
+        <p className="mt-5 text-sm">
           既にアカウントを持っている。
           <Link to="/login" className="underline">
             ログイン

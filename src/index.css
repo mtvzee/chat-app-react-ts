@@ -12,7 +12,7 @@
   }
   .form-input:not(:placeholder-shown) ~ .form-span,
   .form-input:focus ~ .form-span {
-    @apply text-primary text-xs -translate-y-[40px];
+    @apply text-primary text-xs -translate-y-[42px];
   }
 
   .form-i {
@@ -23,9 +23,6 @@
     @apply h-[50px];
   }
 
-  .error-form-input {
-    @apply border-red-500;
-  }
   .error-form-msg {
     @apply absolute text-sm text-red-500;
   }
