@@ -4,8 +4,25 @@
 
 @layer components {
   .form-input {
-    @apply border-b w-full outline-none p-1 focus:border-amber-300 focus:border-b-2;
+    @apply relative w-full h-[50px] outline-none px-2 bg-transparent z-10 text-white;
   }
+
+  .form-span {
+    @apply absolute top-1/2 -translate-y-1/2 left-0 text-[#999999] transition-[transform_text]  duration-500;
+  }
+  .form-input:not(:placeholder-shown) ~ .form-span,
+  .form-input:focus ~ .form-span {
+    @apply text-primary text-xs -translate-y-[40px];
+  }
+
+  .form-i {
+    @apply absolute bottom-0 left-0 w-full h-[2px] rounded-lg bg-primary transition-[height] duration-500;
+  }
+  .form-input:not(:placeholder-shown) ~ .form-i,
+  .form-input:focus ~ .form-i {
+    @apply h-[50px];
+  }
+
   .error-form-input {
     @apply border-red-500;
   }
