@@ -66,7 +66,7 @@ const AddFriend = () => {
           <input
             className="w-full outline-none p-2 rounded-md"
             type="text"
-            placeholder="友達を追加(ユーザー名を入力)"
+            placeholder="ユーザー名を入力"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onKeyDown={(e) => handleEnterKey(e)}
@@ -80,7 +80,12 @@ const AddFriend = () => {
             </button>
           )}
         </span>
-        <button onClick={handleSearchUser}>
+        <button onClick={handleSearchUser} className="relative group">
+          {!username && (
+            <div className="invisible opacity-0 transition duration-300 group-hover:visible group-hover:opacity-100 absolute top-0 left-[40px] bg-black w-[150px] px-2 py-1  rounded-lg">
+              ダミーを作成する
+            </div>
+          )}
           <BsFillPersonPlusFill
             className={`w-8 h-8 hover:scale-110 transition ${
               username && 'animate-pulse'
